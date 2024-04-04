@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Позиционируем контейнер относительно своего родителя */
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .navigation {
+            position: absolute; /* Абсолютное позиционирование для кнопок навигации */
+            top: 10px;
+        }
+
+        .navigation.left {
+            left: 20px; /* Позиционируем кнопку "На главную" в левый верхний угол */
+        }
+
+        .navigation.right {
+            right: 20px; /* Позиционируем кнопку "Редактировать" в правый верхний угол */
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* Создаем круглую форму */
+            object-fit: cover; /* Устанавливаем, чтобы изображение полностью заполняло круг */
+            margin: 0 auto 20px; /* Центрируем изображение и добавляем немного отступа снизу */
+            display: block; /* Для центрирования */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Профиль пользователя</h2>
+    <img th:src="@{/upload/{id}(id = ${person.getId()})}">
+    <p>Имя: <span th:text="${person.getUsername()}"></span></p>
+    <p>Возраст: <span th:text="${person.getAge()}"></span></p>
+    <p>Email: <span th:text="${person.getEmail()}"></span></p>
+    <div class="navigation left">
+        <a class="button" th:href="@{/basis}">На главную</a>
+    </div>
+    <div class="navigation right">
+        <a class="button" th:href="@{/user/edit}">Редактировать</a>
+    </div>
+</div>
+
+</body>
+</html>

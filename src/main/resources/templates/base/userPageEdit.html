@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/user/edit}" th:object="${person}" enctype="multipart/form-data">
+    <label for="age">Введите новые данные</label>
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{password}">
+    <input type="hidden" th:field="*{role}">
+    <input type="hidden" th:field="*{username}">
+    <br/>
+
+    <input type="file" name="file" required accept="image/*,image/jpeg"/>
+
+    <br/>
+    <input type="text" th:field="*{age}" id="age" placeholder="Возраст">
+    <br/>
+    <input type="text" th:field="*{email}" placeholder="Email">
+    <br/>
+    <input type="submit" value="Update">
+</form>
+
+</body>
+</html>

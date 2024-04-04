@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница ресторана</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative; /* Устанавливаем родительский контейнер в качестве точки отсчета для абсолютного позиционирования */
+        }
+
+        .menu {
+            position: absolute; /* Размещаем блок меню абсолютно */
+            top: 0; /* Выравниваем его по верхнему краю */
+            right: 100px; /* Выравниваем его по правому краю */
+            width: 200px; /* Задаем ширину блока меню */
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu h3 {
+            color: #000; /* Цвет названия меню */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin: 10px 0;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .comments {
+            margin-top: 20px;
+        }
+
+        .back-button {
+            position: absolute; /* Абсолютное позиционирование для кнопки "На главную" */
+            top: 10px; /* Располагаем кнопку вверху */
+            left: 80px; /* Располагаем кнопку в левом углу */
+            background-color: #007bff; /* Цвет фона кнопки */
+            color: #fff; /* Цвет текста кнопки */
+            padding: 10px 20px; /* Отступы внутри кнопки */
+            border: none; /* Убираем границу кнопки */
+            border-radius: 5px; /* Скругляем углы кнопки */
+            text-decoration: none; /* Убираем подчеркивание текста кнопки */
+            transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+        }
+
+        .back-button:hover {
+            background-color: #0056b3; /* Изменяем цвет фона при наведении */
+        }
+    </style>
+</head>
+<body>
+<h1>Страница ресторана</h1>
+<p th:text="${restaurant.getNameOfRestaurant()}"></p>
+<p th:text="${restaurant.getAddress()}"></p>
+
+<div class="menu">
+    <h3>Меню</h3>
+    <div th:each="position : ${menu}">
+        <p>
+            <span style="color: #007bff;" th:text="${position.getName()}"></span>
+        </p>
+        <div th:each="pos : ${positions}">
+            <p th:if="${pos.getMenu().getMenuId() == position.getMenuId()}"
+               th:text="${pos.getPosition()}"></p>
+        </div>
+    </div>
+</div>
+
+<div th:each="photo : ${photos}">
+    <img th:src="${photo.getLink()}">
+</div>
+
+<form th:method="POST" th:action="@{/restaurants/{id}(id=${restaurant.getId()})}" th:object="${comment}">
+    <label for="comment">Введите комментарий</label>
+    <input type="hidden" th:value="${comment.getCommentId()}">
+    <input type="text" th:field="*{commentary}" id="comment"/>
+    <br/>
+    <input type="submit" value="Отправить"/>
+</form>
+
+<div class="comments" th:each="comment : ${comments}">
+    <p th:text="${comment.getCommentary()}"></p>
+</div>
+
+<a class="back-button" th:href="@{/basis}">На главную</a>
+
+</body>
+</html>
