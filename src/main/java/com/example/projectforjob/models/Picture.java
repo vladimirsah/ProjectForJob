@@ -30,9 +30,14 @@ public class Picture {
     private byte[] bytes;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "id", referencedColumnName = "id")
     private Person person;
+
+    public Picture() {
+    }
+
+    ;
 
     public int getPictureId() {
         return pictureId;

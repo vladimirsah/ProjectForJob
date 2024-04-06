@@ -68,6 +68,26 @@
             right: 20px; /* Позиционируем кнопку "Редактировать" в правый верхний угол */
         }
 
+        .logout-form {
+            position: absolute; /* Абсолютное позиционирование формы выхода */
+            bottom: 20px; /* Помещаем форму внизу */
+            right: 20px; /* Помещаем форму вправо */
+        }
+
+        .logout-button {
+            background-color: #007bff; /* Цвет фона кнопки */
+            color: #fff; /* Цвет текста кнопки */
+            padding: 10px 20px; /* Отступы внутри кнопки */
+            border-radius: 5px; /* Скругляем углы кнопки */
+            text-decoration: none; /* Убираем подчеркивание текста кнопки */
+            transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+            border: none; /* Убираем границу */
+        }
+
+        .logout-button:hover {
+            background-color: #0056b3; /* Изменяем цвет фона при наведении */
+        }
+
         .profile-img {
             width: 100px;
             height: 100px;
@@ -82,7 +102,7 @@
 
 <div class="container">
     <h2>Профиль пользователя</h2>
-    <img th:src="@{/upload/{id}(id = ${person.getId()})}">
+    <img class="profile-img" th:src="@{/upload/{id}(id = ${person.getId()})}" alt="здесь должна быть картинка">
     <p>Имя: <span th:text="${person.getUsername()}"></span></p>
     <p>Возраст: <span th:text="${person.getAge()}"></span></p>
     <p>Email: <span th:text="${person.getEmail()}"></span></p>
@@ -92,6 +112,10 @@
     <div class="navigation right">
         <a class="button" th:href="@{/user/edit}">Редактировать</a>
     </div>
+
+    <form class="logout-form" th:action="@{/logout}" method="post">
+        <button type="submit" class="logout-button">Выйти</button>
+    </form>
 </div>
 
 </body>

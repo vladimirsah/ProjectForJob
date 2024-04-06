@@ -42,7 +42,9 @@ public class PictureService {
             picture1.setSize(file.getSize());
             picture1.setContentType(file.getContentType());
             picture1.setBytes(file.getBytes());
+            person.setPictures(Collections.singletonList(picture1));
             pictureRepositories.save(picture1);
+
         } else {
             person.setPictures(Collections.singletonList(picture));
             picture.setPerson(person);
@@ -51,6 +53,7 @@ public class PictureService {
             picture.setSize(file.getSize());
             picture.setContentType(file.getContentType());
             picture.setBytes(file.getBytes());
+            person.setPictures(Collections.singletonList(picture));
             pictureRepositories.save(picture);
         }
     }

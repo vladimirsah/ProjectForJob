@@ -74,13 +74,14 @@ public class UserControllers {
     }
 
     @PatchMapping("/user/edit")
-    public String userEdit(@ModelAttribute("person") Person person, @RequestParam("file") MultipartFile file) throws IOException {
+    public String userEdit(@ModelAttribute("person") Person person, @RequestParam("file") MultipartFile multipartFile) throws IOException {
 
         personGetService.update(person);
         pictureService.savePicture(person,
                 pictureService.findById(person.getId()),
-                file
+                multipartFile
         );
+
         SecurityContextHolder.getContext().getAuthentication();
 
         return "redirect:/user";

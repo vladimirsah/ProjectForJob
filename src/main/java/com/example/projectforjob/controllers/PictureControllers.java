@@ -23,11 +23,11 @@ public class PictureControllers {
     }
 
     @GetMapping("/upload/{id}")
-    public ResponseEntity<?> uploadAvatar(@PathVariable("id") int id) {
+    public ResponseEntity<?> uploadAvatar(@PathVariable int id) {
 
         Picture picture = pictureService.findById(id);
         return ResponseEntity.ok()
-                .header("fileNames", picture.getOriginalFileName())
+                .header("file", picture.getOriginalFileName())
                 .contentType(MediaType.valueOf(picture.getContentType()))
                 .contentLength(picture.getSize())
                 .body(new InputStreamResource(new ByteArrayInputStream(picture.getBytes())));
