@@ -1,22 +1,24 @@
-Проект представляет собой сайт, позволяющий оценить качество обслуживания в ресторане, который вы посетили.
-Написан с использованием Spring Boot, Data Jpa, MVC, Security
+# Restaurant Service Quality Evaluation Project
 
-Начните с клонирования репозитория проекта с GitHub на ваш компьютер. Выполните следующую команду в командной строке или терминале:
-git clone https://github.com/vladimirsah/ProjectForJob.git
-Создайте свою базу данных, основанную на сущностях проекта
-Внесите необходимые изменения в файл application.properties, чтобы указать параметры подключения к вашей базе данных.
-Перейдите в каталог проекта и выполните сборку проекта:
-cd <путь к каталогу проекта>
-mvn package
+This project is a website aimed at evaluating the quality of service in restaurants. It allows users to rate their dining experiences and provide feedback.
 
+## Technologies Used
+- Spring Boot
+- Spring Data JPA
+- Spring MVC
+- Spring Security
 
-The project is a website that allows you to evaluate the quality of service in the restaurant you visited.
-Written using Spring Boot, Data Jpa, MVC, Security
+## Getting Started
+1. **Clone the Repository**: Start by cloning the project repository from GitHub to your computer. Run the following command on the command line or terminal:
 
-Start by cloning the project repository from GitHub to your computer. Run the following command on the command line or terminal:
-git clone https://github.com/vladimirsah/ProjectForJob .git
-Create your own database based on the project entities
-Make the necessary changes to the application.properties file to specify the connection parameters to your database.
-Go to the project directory and build the project:
+ ```bash
+   git clone https://github.com/vladimirsah/ProjectForJob.git 
+```
+2. **Create Database**: Create your own database based on the project entities.
+
+3. **Configure Database Connection**: Make the necessary changes to the `application.properties` file to specify the connection parameters to your database.
+
+4. **Build the Project**: Navigate to the project directory and build the project using Maven:
+```bash
 cd <path to the project directory>
 mvn package
