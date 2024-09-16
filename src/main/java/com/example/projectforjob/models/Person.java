@@ -39,6 +39,17 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<Picture> pictures;
 
+    @OneToMany(mappedBy = "person")
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public Person() {
 
     }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Страница ресторана</title>
@@ -11,14 +12,14 @@
             padding: 0;
             box-sizing: border-box;
             text-align: center;
-            position: relative; /* Устанавливаем родительский контейнер в качестве точки отсчета для абсолютного позиционирования */
+            position: relative;
         }
 
         .menu {
-            position: absolute; /* Размещаем блок меню абсолютно */
-            top: 0; /* Выравниваем его по верхнему краю */
-            right: 100px; /* Выравниваем его по правому краю */
-            width: 200px; /* Задаем ширину блока меню */
+            position: absolute;
+            top: 0;
+            right: 100px;
+            width: 200px;
             background-color: #fff;
             padding: 10px;
             border-radius: 5px;
@@ -26,7 +27,7 @@
         }
 
         .menu h3 {
-            color: #000; /* Цвет названия меню */
+            color: #000;
         }
 
         h1 {
@@ -72,23 +73,132 @@
 
         .comments {
             margin-top: 20px;
+            width: 60%;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .comment-block {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .profile-img {
+            flex: 0 0 auto;
+            margin-right: 20px;
+        }
+
+        .profile-img img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+
+        .username {
+            font-weight: bold;
+            color: #333;
+            margin-right: 20px;
+        }
+
+        .comment-text {
+            flex: 1;
+            color: #666;
+        }
+
+        .rating-result {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+        .rating-result span {
+            font-size: 14px;
+            margin: 0 1px;
+            color: lightgrey;
+            text-shadow: 1px 1px #bbb;
+        }
+
+        .rating-result > span:before {
+            content: '★';
+        }
+
+        .rating-result > span.active {
+            color: gold;
+            text-shadow: 1px 1px #c60;
         }
 
         .back-button {
-            position: absolute; /* Абсолютное позиционирование для кнопки "На главную" */
-            top: 10px; /* Располагаем кнопку вверху */
-            left: 80px; /* Располагаем кнопку в левом углу */
-            background-color: #007bff; /* Цвет фона кнопки */
-            color: #fff; /* Цвет текста кнопки */
-            padding: 10px 20px; /* Отступы внутри кнопки */
-            border: none; /* Убираем границу кнопки */
-            border-radius: 5px; /* Скругляем углы кнопки */
-            text-decoration: none; /* Убираем подчеркивание текста кнопки */
-            transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+            position: absolute;
+            top: 10px;
+            left: 80px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
         }
 
         .back-button:hover {
-            background-color: #0056b3; /* Изменяем цвет фона при наведении */
+            background-color: #0056b3;
+        }
+
+        .rating-area {
+            overflow: hidden;
+            width: 265px;
+            margin: 0 auto;
+        }
+
+        .rating-area:not(:checked) > input {
+            display: none;
+        }
+
+        .rating-area:not(:checked) > label {
+            float: right;
+            width: 52px;
+            padding: 0;
+            cursor: pointer;
+            font-size: 32px;
+            line-height: 32px;
+            color: lightgrey;
+            text-shadow: 1px 1px #bbb;
+        }
+
+        .rating-area:not(:checked) > label:before {
+            content: '★';
+        }
+
+        .rating-area > input:checked ~ label {
+            color: gold;
+            text-shadow: 1px 1px #c60;
+        }
+
+        .rating-area:not(:checked) > label:hover,
+        .rating-area:not(:checked) > label:hover ~ label {
+            color: gold;
+        }
+
+        .rating-area > input:checked + label:hover,
+        .rating-area > input:checked + label:hover ~ label,
+        .rating-area > input:checked ~ label:hover,
+        .rating-area > input:checked ~ label:hover ~ label,
+        .rating-area > label:hover ~ input:checked ~ label {
+            color: gold;
+            text-shadow: 1px 1px goldenrod;
+        }
+
+        .rate-area > label:active {
+            position: relative;
         }
     </style>
 </head>
@@ -99,7 +209,7 @@
 
 <div class="menu">
     <h3>Меню</h3>
-    <div th:each="position : ${menu}">
+    <div th:each="position:${menu}">
         <p>
             <span style="color: #007bff;" th:text="${position.getName()}"></span>
         </p>
@@ -113,17 +223,49 @@
 <div th:each="photo : ${photos}">
     <img th:src="${photo.getLink()}">
 </div>
+<p>Оценка ресторана </p>
+<p th:text="${count}"></p>
 
 <form th:method="POST" th:action="@{/restaurants/{id}(id=${restaurant.getId()})}" th:object="${comment}">
     <label for="comment">Введите комментарий</label>
     <input type="hidden" th:value="${comment.getCommentId()}">
-    <input type="text" th:field="*{commentary}" id="comment"/>
+    <input type="text" th:field="*{comment}" id="comment"/>
+    <div class="rating-area">
+        <input type="radio" id="star-5" th:field="*{mark}" value="5">
+        <label for="star-5" title="Оценка «5»"></label>
+        <input type="radio" id="star-4" th:field="*{mark}" value="4">
+        <label for="star-4" title="Оценка «4»"></label>
+        <input type="radio" id="star-3" th:field="*{mark}" value="3">
+        <label for="star-3" title="Оценка «3»"></label>
+        <input type="radio" id="star-2" th:field="*{mark}" value="2">
+        <label for="star-2" title="Оценка «2»"></label>
+        <input type="radio" id="star-1" th:field="*{mark}" value="1">
+        <label for="star-1" title="Оценка «1»"></label>
+    </div>
     <br/>
     <input type="submit" value="Отправить"/>
 </form>
 
 <div class="comments" th:each="comment : ${comments}">
-    <p th:text="${comment.getCommentary()}"></p>
+    <div class="comment-block">
+        <div class="profile-img">
+            <img th:src="@{/upload/{id}(id = ${comment.getPerson().getId()})}" alt="Аватар пользователя">
+        </div>
+        <div class="username" th:text="${comment.getPerson().username}"></div>
+        <div class="comment-text" th:text="${comment.getComment()}"></div>
+        <div th:each="id : ${comId}">
+            <form th:method="post"
+                  th:action="@{/restaurants/{restaurantId}/comment/{commentId}(restaurantId=${restaurant.getId()},commentId=${comment.getCommentId()})}"
+            >
+                <input type="hidden" name="_method" value="delete"/>
+                <input th:if="${comment.getCommentId()== id}" type="submit" value="del">
+            </form>
+        </div>
+        <div class="rating-result">
+            <span th:each="i : ${#numbers.sequence(1, comment.getMark())}" class="active"></span>
+            <span th:each="i : ${#numbers.sequence(comment.getMark() + 1, 5)}"></span>
+        </div>
+    </div>
 </div>
 
 <a class="back-button" th:href="@{/basis}">На главную</a>

@@ -24,12 +24,20 @@ public class PictureControllers {
 
     @GetMapping("/upload/{id}")
     public ResponseEntity<?> uploadAvatar(@PathVariable int id) {
-
         Picture picture = pictureService.findById(id);
-        return ResponseEntity.ok()
-                .header("file", picture.getOriginalFileName())
-                .contentType(MediaType.valueOf(picture.getContentType()))
-                .contentLength(picture.getSize())
-                .body(new InputStreamResource(new ByteArrayInputStream(picture.getBytes())));
+        Picture def = pictureService.getDefault();
+        if (picture == null) {
+            return ResponseEntity.ok()
+                    .header("file", def.getOriginalFileName())
+                    .contentType(MediaType.valueOf(def.getContentType()))
+                    .contentLength(def.getSize())
+                    .body(new InputStreamResource(new ByteArrayInputStream(def.getBytes())));
+        } else {
+            return ResponseEntity.ok()
+                    .header("file", picture.getOriginalFileName())
+                    .contentType(MediaType.valueOf(picture.getContentType()))
+                    .contentLength(picture.getSize())
+                    .body(new InputStreamResource(new ByteArrayInputStream(picture.getBytes())));
+        }
     }
 }

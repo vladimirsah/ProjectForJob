@@ -4,13 +4,11 @@ import com.example.projectforjob.models.Person;
 import com.example.projectforjob.models.Picture;
 import com.example.projectforjob.repositories.PictureRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +27,12 @@ public class PictureService {
         Optional<Picture> picture = pictureRepositories.findByPerson_Id(id);
 
         return picture.orElse(null);
+    }
+
+    public Picture getDefault() {
+
+        Picture picture = pictureRepositories.findByName("default");
+        return picture;
     }
 
     public void savePicture(Person person, Picture picture, MultipartFile file) throws IOException {

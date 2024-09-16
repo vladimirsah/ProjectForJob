@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+
+    background-color: #f0f8ff; /* голубой цвет фона */
+}
+
+form {
+    width: 300px;
+    margin: 50px auto;
+
+    background-color: #fff; /* белый цвет фона формы */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* тень */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #1e90ff; /* голубой цвет текста меток */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 12px); /* ширина инпутов, учитывая отступы */
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid #1e90ff; /* голубая рамка */
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    background-color: #1e90ff; /* голубой цвет кнопки */
+    border: none;
+    border-radius: 4px;
+    color: #fff; /* белый цвет текста на кнопке */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #4682b4; /* изменение цвета кнопки при наведении */
+}
+
+.error-message {
+    color: red; /* красный цвет текста сообщения об ошибке */
+}
+
+.signup-link {
+    display: block;
+    margin-top: -35px; /* отступ сверху */
+    text-align: center; /* выравнивание по центру */
+    color: #1e90ff; /* голубой цвет текста */
+    text-decoration: none; /* убираем подчеркивание */
+}
+
+.signup-link:hover {
+    color: #4682b4; /* изменение цвета текста при наведении */
+}

@@ -1,9 +1,11 @@
 package com.example.projectforjob.services;
 
 import com.example.projectforjob.models.Comment;
+import com.example.projectforjob.models.Person;
 import com.example.projectforjob.models.Restaurant;
 import com.example.projectforjob.repositories.CommentRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +27,17 @@ public class CommentService {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    public void saveComment(Restaurant restaurant, Comment comment) {
+    public void saveComment(Restaurant restaurant, Person person, Comment comment) {
         comment.setRestaurant(restaurant);
-
+        comment.setPerson(person);
         commentRepositories.save(comment);
     }
+
+    public void delete(int id) {
+        commentRepositories.deleteById(id);
+    }
+
+//    public Restaurant findRest(Comment comment){
+//        Restaurant restaurant =
+//    }
 }

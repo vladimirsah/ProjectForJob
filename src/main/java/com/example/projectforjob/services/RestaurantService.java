@@ -1,5 +1,6 @@
 package com.example.projectforjob.services;
 
+import com.example.projectforjob.models.Comment;
 import com.example.projectforjob.models.Photo;
 import com.example.projectforjob.models.Restaurant;
 import com.example.projectforjob.repositories.PhotoRepositories;
@@ -37,4 +38,6 @@ public class RestaurantService {
         List<Photo> photos = photoRepositories.findByRestaurant_Id(id);
         return photos;
     }
+
+
 }
