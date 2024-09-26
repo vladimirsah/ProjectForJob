@@ -37,4 +37,9 @@ public class AuthController {
 
         return "redirect:/auth/login";
     }
+
+    @GetMapping("/auth")
+    public String button() {
+        return "auth/button";
+    }
 }

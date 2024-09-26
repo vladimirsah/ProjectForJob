@@ -27,8 +27,9 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/auth/login", "/error", "/auth/registration", "/basis", "/restaurants/**", "/city", "/upload/**").permitAll()
+            .antMatchers("/admin").hasRole("ADMIN")
+            .antMatchers("/auth/login", "/error", "/auth/registration", "/basis", "/restaurants/**", "/city", "/upload/**", "/attractions/**", "/attraction/**").permitAll()
+            .antMatchers("/css/style.css", "/js/bootstrap.js", "/css/style.scss").permitAll()
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")

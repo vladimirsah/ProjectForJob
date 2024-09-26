@@ -39,5 +39,9 @@ public class RestaurantService {
         return photos;
     }
 
+    public void save(Restaurant restaurant, double mark) {
+        restaurant.setAverageMark(mark);
+        restaurantsRepositories.save(restaurant);
+    }
 
 }

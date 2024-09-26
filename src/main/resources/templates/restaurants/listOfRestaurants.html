@@ -2,6 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница о ресторанах</title>
     <style>
         body {
@@ -20,6 +21,19 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Для псевдоэлемента */
+        }
+
+        div::before {
+            content: '';
+            position: absolute;
+            top: -3px; /* Уменьшено для тоньшей обводки */
+            left: -3px; /* Уменьшено для тоньшей обводки */
+            right: -3px; /* Уменьшено для тоньшей обводки */
+            bottom: -3px; /* Уменьшено для тоньшей обводки */
+            background: rgba(255, 126, 0, 0.7); /* Оранжевый с прозрачностью */
+            border-radius: 10px; /* Радиус обводки */
+            z-index: -1; /* Поместить под основным содержимым */
         }
 
         p {
@@ -29,13 +43,16 @@
         }
 
         a {
-            color: #007bff;
             text-decoration: none;
-            transition: color 0.3s ease;
+            background-image: linear-gradient(to right, #ff7e00, #ffb347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            transition: background-image 0.3s ease;
         }
 
         a:hover {
-            color: #0056b3;
+            background-image: linear-gradient(to right, #e65c00, #ffcc33);
         }
     </style>
 </head>

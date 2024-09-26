@@ -29,6 +29,17 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Photo> photos;
 
+    @Column(name = "average")
+    private double averageMark;
+
+    public double getAverageMark() {
+        return averageMark;
+    }
+
+    public void setAverageMark(double averageMark) {
+        this.averageMark = averageMark;
+    }
+
     public int getId() {
         return id;
     }

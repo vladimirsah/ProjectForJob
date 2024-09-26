@@ -5,17 +5,26 @@ import com.example.projectforjob.models.Comment;
 import com.example.projectforjob.models.Person;
 import com.example.projectforjob.models.Restaurant;
 import com.example.projectforjob.security.PersonDetail;
-import com.example.projectforjob.services.*;
+import com.example.projectforjob.services.CityService;
+import com.example.projectforjob.services.CommentService;
+import com.example.projectforjob.services.MenuService;
+import com.example.projectforjob.services.PersonGetService;
+import com.example.projectforjob.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class RestaurantControllers {
@@ -44,7 +53,9 @@ public class RestaurantControllers {
     @GetMapping("/restaurants")
     public String getAllRestaurants(@ModelAttribute("town") City city, Model model) {
 
-        model.addAttribute("restaurants", restaurantService.findAllRestaurants(city.getId()));
+        List<Restaurant> restaurants = restaurantService.findAllRestaurants(city.getId());
+        restaurants.sort((r1, r2) -> Double.compare(r2.getAverageMark(), r1.getAverageMark()));
+        model.addAttribute("restaurants", restaurants);
         return "restaurants/listOfRestaurants";
     }
 
@@ -60,29 +71,18 @@ public class RestaurantControllers {
         model.addAttribute("photos", restaurantService.findPhotos(id));
 
         List<Comment> com = commentService.findAllComments(id);
-        double count = 0;
-        int k = 0;
-        for (Comment mark : com) {
-            count += mark.getMark();
-            k++;
-        }
-        count = count / k;
-        model.addAttribute("count", count);
+
+        double average_count = com.stream().mapToDouble(Comment::getMark).average().orElse(0.0);
+
+        restaurantService.save(restaurantService.findRestaurant(id), average_count);
+        model.addAttribute("count", average_count);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         if (principal != "anonymousUser") {
             Person person = ((PersonDetail) principal).getPerson();
-
-            List<Integer> listId = new ArrayList<>();
-            int c = 0;
-            for (Comment commentary : com) {
-                if (commentary.getPerson().getId() == person.getId()) {
-                    listId.add(c, commentary.getCommentId());
-                    c++;
-                }
-            }
-            model.addAttribute("comId", listId);
+            List<Integer> comments = com.stream().filter(comment1 -> comment1.getPerson().getId() == person.getId()).map(Comment::getCommentId).collect(Collectors.toList());
+            model.addAttribute("comId", comments);
         }
         return "restaurants/restaurant";
     }

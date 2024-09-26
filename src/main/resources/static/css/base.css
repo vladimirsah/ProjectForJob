@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+    color: #333;
+}
+
+#container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    margin: 100px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+#header {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.blok {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    margin: 20px auto;
+    padding: 15px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blok:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.blok a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.blok4 {
+    position: relative;
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.blok4 a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    transition: width 0.5s, background-color 0.3s, transform 0.3s;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 24px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.blok4 a:hover {
+    background-color: #218838;
+    width: 160px;
+    transform: translateY(-5px);
+}
+
+/* Иконка "человечек" */
+.blok4 a::before {
+    content: '?';
+    display: inline-block;
+    transition: opacity 0.3s ease;
+    position: absolute;
+}
+
+/* Скрываем иконку при наведении */
+.blok4 a:hover::before {
+    opacity: 0;
+}
+
+/* Текст "Войти в аккаунт" */
+.blok4 a span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 16px;
+}
+
+/* Показываем текст при наведении */
+.blok4 a:hover span {
+    opacity: 1;
+}
