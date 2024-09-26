@@ -2,139 +2,83 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Гид по городам</title>
+    <title>Пример страницы</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('https://files.oaiusercontent.com/file-Fs4XCHpb2ywzlXyJVddT3l0S?se=2024-09-19T18%3A18%3A40Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7fe59b45-e19b-4345-9705-def446682487.webp&sig=WK2zimyTN5/1c8rBPAR8mfNDG41QG9NnGirMK0wUp3o%3D');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #333;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Голубой цвет фона */
         }
 
         #container {
-            background-color: rgba(255, 255, 255, 0.95); /* Измените 0.8 на 0.9 */
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            margin: 100px auto;
-            max-width: 600px;
-            text-align: center;
+            background-color: #add8e6; /* Цвет фона обертывающего блока */
+            padding: 20px; /* Внутренний отступ для обертывающего блока */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень */
+            margin: 50px auto;
+            width: 880px;
         }
 
-
-        #header {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 40px;
-        }
-
-        .blok {
+        #glaw {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 400px;
-            height: 60px;
-            margin: 20px auto;
-            padding: 15px;
+        }
+
+        .blok1, .blok2, .blok3 {
+            width: 200px;
+            height: 50px;
+            padding: 10px;
             text-align: center;
-            border-radius: 15px;
-            background: linear-gradient(to right, rgba(255, 140, 0, 0.9), rgba(255, 200, 0, 0.9)); /* оранжевый градиент */
-            color: white; /* цвет текста */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .blok:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-        }
-
-
-        .blok a {
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень */
             display: flex;
-            align-items: center;
             justify-content: center;
-            width: 100%;
-            height: 100%;
+            align-items: center;
+            background-color: #fff; /* Белый цвет фона */
         }
 
-        .blok4 {
-            position: relative;
-            display: inline-block;
+        .blok1, .blok2, .blok3 {
             margin-top: 30px;
         }
 
+        .blok1 a, .blok2 a, .blok3 a {
+            text-decoration: none; /* Убираем подчеркивание у ссылок */
+            color: #333; /* Цвет текста */
+        }
+
         .blok4 a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(to right, rgba(255, 140, 0, 0.9), rgba(255, 200, 0, 0.9)); /* более насыщенный и приглушенный оранжевый градиент */
-            color: #fff;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #1e910e; /* Зеленый цвет кнопки */
+            color: #fff; /* Белый цвет текста */
             cursor: pointer;
-            transition: width 0.5s, background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s;
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 24px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
+            border-radius: 50%;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень */
         }
 
         .blok4 a:hover {
-            background: linear-gradient(to right, rgba(255, 200, 0, 0.9), rgba(255, 140, 0, 0.9)); /* изменяем порядок градиента */
-            width: 160px;
-            transform: translateY(-5px);
-        }
-
-
-        /* Иконка "человечек" */
-        .blok4 a::before {
-            content: '👤';
-            display: inline-block;
-            transition: opacity 0.3s ease;
-            position: absolute;
-        }
-
-        /* Скрываем иконку при наведении */
-        .blok4 a:hover::before {
-            opacity: 0;
-        }
-
-        /* Текст "Войти в аккаунт" */
-        .blok4 a span {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-size: 16px;
-        }
-
-        /* Показываем текст при наведении */
-        .blok4 a:hover span {
-            opacity: 1;
+            background-color: #45a049; /* Изменение цвета кнопки при наведении */
         }
     </style>
 </head>
 <body>
 
 <div id="container">
-    <div id="header">Выберите направление</div>
-    <div class="blok"><a href="/city">Рестораны</a></div>
-    <div class="blok"><a href="/attractions">Достопримечательности</a></div>
-    <div class="blok"><a href="/hotels">Отели</a></div>
-    <div class="blok4">
-        <a href="/user"><span>Войти в аккаунт</span></a>
+    <div id="glaw">
+        <div class="blok1"><a th:href="@{/city}">Рестораны</a></div>
+        <div class="blok2"><a th:href="@{/amebs}">Амебы</a></div>
+        <div class="blok3"><a href="ссылка_на_страницу_пользователя">Дыни торпеды</a></div>
+        <div class="blok4">
+            <a th:href="@{/user}">User</a>
+        </div>
     </div>
 </div>
 
