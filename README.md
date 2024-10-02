@@ -7,6 +7,8 @@ This project is a website aimed at evaluating the quality of service in restaura
 - Spring Data JPA
 - Spring MVC
 - Spring Security
+- Static API 2gis
+- Geocoder API
 
 ## Getting Started
 1. **Clone the Repository**: Start by cloning the project repository from GitHub to your computer. Run the following command on the command line or terminal:
