@@ -8,6 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -61,4 +68,17 @@ public class PictureService {
             pictureRepositories.save(picture);
         }
     }
+
+    public InputStream getPicture(String apiUrl) throws IOException, InterruptedException {
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest httpRequest = HttpRequest
+            .newBuilder()
+            .uri(URI.create(apiUrl))
+            .GET()
+            .build();
+
+        HttpResponse<InputStream> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
+        return response.body();
+    }
+
 }

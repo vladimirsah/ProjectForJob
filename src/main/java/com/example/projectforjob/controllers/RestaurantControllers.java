@@ -9,6 +9,7 @@ import com.example.projectforjob.services.CityService;
 import com.example.projectforjob.services.CommentService;
 import com.example.projectforjob.services.MenuService;
 import com.example.projectforjob.services.PersonGetService;
+import com.example.projectforjob.services.PictureService;
 import com.example.projectforjob.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,14 +35,16 @@ public class RestaurantControllers {
     private final CommentService commentService;
     private final MenuService menuService;
     private final PersonGetService personGetService;
+    private final PictureService pictureService;
 
     @Autowired
-    public RestaurantControllers(RestaurantService restaurantService, CityService cityService, CommentService commentService, MenuService menuService, PersonGetService personGetService) {
+    public RestaurantControllers(RestaurantService restaurantService, CityService cityService, CommentService commentService, MenuService menuService, PersonGetService personGetService, PictureService pictureService) {
         this.restaurantService = restaurantService;
         this.cityService = cityService;
         this.commentService = commentService;
         this.menuService = menuService;
         this.personGetService = personGetService;
+        this.pictureService = pictureService;
     }
 
     @GetMapping("/city")
@@ -51,7 +54,7 @@ public class RestaurantControllers {
     }
 
     @GetMapping("/restaurants")
-    public String getAllRestaurants(@ModelAttribute("town") City city, Model model) {
+    public String getAllRestaurants(@ModelAttribute("town") City city, Model model) throws IOException, InterruptedException {
 
         List<Restaurant> restaurants = restaurantService.findAllRestaurants(city.getId());
         restaurants.sort((r1, r2) -> Double.compare(r2.getAverageMark(), r1.getAverageMark()));
@@ -62,7 +65,7 @@ public class RestaurantControllers {
     @GetMapping("/restaurants/{id}")
     public String getRestaurant(@PathVariable("id") int id, Model model,
                                 @ModelAttribute("comment") Comment comment
-    ) {
+    ) throws IOException, InterruptedException {
 
         model.addAttribute("restaurant", restaurantService.findRestaurant(id));
         model.addAttribute("comments", commentService.findAllComments(id));
@@ -70,8 +73,11 @@ public class RestaurantControllers {
         model.addAttribute("positions", menuService.getPositions(id));
         model.addAttribute("photos", restaurantService.findPhotos(id));
 
-        List<Comment> com = commentService.findAllComments(id);
+        String coordinates = restaurantService.getCoordinates(id);
+        String url = "https://static.maps.2gis.com/1.0?center=" + coordinates + "&zoom=15&size=600,400&&markers=" + coordinates;
+        model.addAttribute("picture", url);
 
+        List<Comment> com = commentService.findAllComments(id);
         double average_count = com.stream().mapToDouble(Comment::getMark).average().orElse(0.0);
 
         restaurantService.save(restaurantService.findRestaurant(id), average_count);
@@ -104,6 +110,5 @@ public class RestaurantControllers {
         commentService.delete(commentId);
         return "redirect:/restaurants/" + restaurant.getId();
     }
-
 
 }

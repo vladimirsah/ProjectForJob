@@ -1,10 +1,13 @@
 package com.example.projectforjob.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Comment")
-public class Comment {
+public class Comment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
@@ -15,10 +18,12 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
+    @JsonIgnore
     private Restaurant restaurant;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private Person person;
 
     @Column(name = "mark")

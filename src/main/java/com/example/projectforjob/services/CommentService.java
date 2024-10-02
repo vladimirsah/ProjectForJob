@@ -37,7 +37,4 @@ public class CommentService {
         commentRepositories.deleteById(id);
     }
 
-//    public Restaurant findRest(Comment comment){
-//        Restaurant restaurant =
-//    }
 }

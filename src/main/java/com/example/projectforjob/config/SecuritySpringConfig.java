@@ -9,17 +9,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SpringConfig extends WebSecurityConfigurerAdapter {
+public class SecuritySpringConfig extends WebSecurityConfigurerAdapter {
 
     public final PersonDetailService personDetailService;
 
     @Autowired
-    public SpringConfig(PersonDetailService personDetailService) {
+    public SecuritySpringConfig(PersonDetailService personDetailService) {
         this.personDetailService = personDetailService;
     }
 
@@ -28,7 +27,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
             .antMatchers("/admin").hasRole("ADMIN")
-            .antMatchers("/auth/login", "/error", "/auth/registration", "/basis", "/restaurants/**", "/city", "/upload/**", "/attractions/**", "/attraction/**").permitAll()
+            .antMatchers("/auth/login", "/error", "/auth/registration", "/basis", "/restaurants/**", "/city", "/upload/**", "/attractions/**", "/attraction/**", "/uploads/**").permitAll()
             .antMatchers("/css/style.css", "/js/bootstrap.js", "/css/style.scss").permitAll()
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()

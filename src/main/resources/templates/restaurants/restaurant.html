@@ -200,6 +200,27 @@
         .rate-area > label:active {
             position: relative;
         }
+
+        .map-container {
+            margin: 20px auto;
+            width: 250px; /* Ширина карты */
+            height: 250px; /* Высота карты */
+            border-radius: 50%; /* Делает карту круглой */
+            overflow: hidden; /* Обрезает края для круглой формы */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* Добавляем фон для контрастности */
+            position: relative; /* Для корректного позиционирования */
+            left: -550px; /* Сместим карту влево */
+            top: -400px;
+        }
+
+        .map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Обеспечивает сохранение пропорций */
+        }
+
+
     </style>
 </head>
 <body>
@@ -223,8 +244,13 @@
 <div th:each="photo : ${photos}">
     <img th:src="${photo.getLink()}">
 </div>
+
 <p>Оценка ресторана </p>
 <p th:text="${count}"></p>
+<div class="map-container">
+    <img th:src="@{/uploads(url=${picture})}" alt="Здесь должна быть картинка"/>
+</div>
+
 
 <form th:method="POST" th:action="@{/restaurants/{id}(id=${restaurant.getId()})}" th:object="${comment}">
     <label for="comment">Введите комментарий</label>
