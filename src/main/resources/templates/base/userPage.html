@@ -1,100 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Профиль пользователя</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://files.oaiusercontent.com/file-Fs4XCHpb2ywzlXyJVddT3l0S?se=2024-10-02T07%3A18%3A47Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7fe59b45-e19b-4345-9705-def446682487.webp&sig=HZ2tdy7SBQ7qk%2BqPdzdSNckNgrrrtZ6B9P0qu0IcUsg%3D');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
             text-align: center;
         }
 
         .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
+            max-width: 600px;
+            margin: 100px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 40px;
             color: #333;
         }
 
         p {
+            font-size: 18px;
             color: #666;
             margin-bottom: 10px;
         }
 
         a {
-            color: #007bff;
             text-decoration: none;
+            color: #fff;
             transition: color 0.3s ease;
         }
 
-        a:hover {
-            color: #0056b3;
-        }
-
         .button {
-            background-color: #007bff;
+            background: linear-gradient(to right, rgba(255, 140, 0, 0.9), rgba(255, 200, 0, 0.9));
             color: #fff;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 15px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            transition: background 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         .button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(to right, rgba(255, 200, 0, 0.9), rgba(255, 140, 0, 0.9));
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
         }
 
         .navigation {
-            position: absolute;
-            top: 10px;
-        }
-
-        .navigation.left {
-            left: 20px;
-        }
-
-        .navigation.right {
-            right: 20px;
+            margin-top: 30px;
         }
 
         .logout-form {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
+            margin-top: 20px;
         }
 
         .logout-button {
-            background-color: #007bff;
+            background: linear-gradient(to right, rgba(255, 140, 0, 0.9), rgba(255, 200, 0, 0.9));
             color: #fff;
             padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
+            border-radius: 15px;
             border: none;
+            transition: background 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         .logout-button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(to right, rgba(255, 200, 0, 0.9), rgba(255, 140, 0, 0.9));
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
         }
 
         .profile-img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             margin: 0 auto 20px;
             display: block;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -102,14 +97,13 @@
 
 <div class="container">
     <h2>Профиль пользователя</h2>
-    <img class="profile-img" th:src="@{/upload/{id}(id = ${person.getId()})}" alt="здесь должна быть картинка">
+    <img class="profile-img" th:src="@{/upload/{id}(id = ${person.getId()})}" alt="Аватар пользователя">
     <p>Имя: <span th:text="${person.getUsername()}"></span></p>
     <p>Возраст: <span th:text="${person.getAge()}"></span></p>
     <p>Email: <span th:text="${person.getEmail()}"></span></p>
-    <div class="navigation left">
+
+    <div class="navigation">
         <a class="button" th:href="@{/basis}">На главную</a>
-    </div>
-    <div class="navigation right">
         <a class="button" th:href="@{/user/edit}">Редактировать</a>
     </div>
 

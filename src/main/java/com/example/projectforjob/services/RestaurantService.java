@@ -59,7 +59,7 @@ public class RestaurantService {
 
     public String getCoordinates(int id) throws IOException, InterruptedException {
         String urlGeocoderApi = "https://catalog.api.2gis.com/3.0/items/geocode?q=";
-        String paramGeocoderApi = "&fields=items.point&key=493a6277-1562-44c5-a05d-48c7d18c1576";
+        String paramGeocoderApi = "&fields=items.point&key=72168c1f-8bc8-4b99-be3b-c6060dc6a779";
         String address = URLEncoder.encode(restaurantsRepositories.findById(id).get().getAddress(), "UTF-8");
 
         HttpClient httpClient = HttpClient.newHttpClient();

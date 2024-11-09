@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,7 +74,7 @@ public class UserControllers {
         return "base/userPageEdit";
     }
 
-    @PatchMapping("/user/edit")
+    @PostMapping("/user/edit")
     public String userEdit(@ModelAttribute("person") Person person, @RequestParam("file") MultipartFile multipartFile) throws IOException {
 
         personGetService.update(person);
@@ -81,8 +82,6 @@ public class UserControllers {
                 pictureService.findById(person.getId()),
                 multipartFile
         );
-
-        SecurityContextHolder.getContext().getAuthentication();
 
         return "redirect:/user";
 
